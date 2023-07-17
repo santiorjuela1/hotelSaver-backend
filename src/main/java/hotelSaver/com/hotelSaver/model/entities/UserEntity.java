@@ -8,10 +8,6 @@ public class UserEntity {
 
     //documento, tipoDocumento
     @EmbeddedId
-    @AttributeOverrides({
-            @AttributeOverride(name = "documento", column = @Column(name = "documento")),
-            @AttributeOverride(name = "tipoDocumento", column = @Column(name = "tipo_documento"))
-    })
     private UserID userID;
 
     private String nombre;
@@ -22,11 +18,11 @@ public class UserEntity {
 
     private String telefono;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id"),
-            @JoinColumn(name = "user_documento", referencedColumnName = "user_documento"),
-            @JoinColumn(name = "user-tipo-documento", referencedColumnName = "user_tipo_documento")
+            @JoinColumn(name = "user_documento", referencedColumnName = "documento"),
+            @JoinColumn(name = "user_tipo_documento", referencedColumnName = "tipo_documento")
     })
-    ReservationEntity reservationEntity;*/
+    ReservationEntity reservationEntity;
 }

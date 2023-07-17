@@ -10,16 +10,7 @@ import java.util.List;
 @Table(name = "reservations")
 public class ReservationEntity {
     @EmbeddedId
-    @AttributeOverrides({
-            @AttributeOverride(name = "hotelID", column = @Column(name = "hotel_id"))
-    })
-    @AssociationOverride(name = "userID",
-            joinColumns = {
-                    @JoinColumn(name = "user_documento", referencedColumnName = "documento"),
-                    @JoinColumn(name = "user_tipo_documento", referencedColumnName = "tipoDocumento")
-            })
     private ReservationID reservationID;
-
 
     @Column(name = "fecha_inicio")
     private Date fechaInicio;
@@ -29,6 +20,6 @@ public class ReservationEntity {
 
     private Integer numeroHabitaciones;
 
-    /*@OneToMany(mappedBy = "reservationEntity")
-    private List<UserEntity> cedulas;*/
+    @OneToMany(mappedBy = "reservationEntity")
+    private List<UserEntity> cedulas;
 }
