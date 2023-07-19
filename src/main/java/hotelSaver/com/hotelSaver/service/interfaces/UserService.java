@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 public interface UserService {
     UserDTO createUsuario(UserDTO userDTO);
     UserDTO getUsuario(Long documento, String tipoDocumento);
-    HttpStatus deleteUsuario(Long documento);
+    HttpStatus deleteUsuario(Long documento, String tipoDocumento);
     UserDTO updateUsuario(UserDTO userDTO);
 
 }

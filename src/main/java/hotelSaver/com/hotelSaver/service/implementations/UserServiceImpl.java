@@ -45,12 +45,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public HttpStatus deleteUsuario(Long documento) {
-        return null;
+    public HttpStatus deleteUsuario(Long documento, String tipoDocumento ) {
+        UserID userID = new UserID(documento, tipoDocumento);
+
+        UserEntity userEntity = userRepository.findById(userID).
+                orElseThrow(() -> new RuntimeException("Could not find ID"));
+
+        userRepository.delete(userEntity);
+        return HttpStatus.NO_CONTENT;
     }
 
     @Override
     public UserDTO updateUsuario(UserDTO userDTO) {
-        return null;
+        UserEntity userEntity = userRepository.findById(userDTO.getUserID())
+                .orElseThrow(() -> new RuntimeException("Id was not found"));
+
+        modelMapper.map(userDTO, userEntity);
+
+        userRepository.save(userEntity);
+
+        return modelMapper.map(userEntity, UserDTO.class);
     }
 }

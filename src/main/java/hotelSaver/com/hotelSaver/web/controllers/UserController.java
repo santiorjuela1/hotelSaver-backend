@@ -19,23 +19,23 @@ public class UserController {
                 ResponseEntity<>(userService.createUsuario(userDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/getUser/{documento}/[tipoDocumento]")
+    @GetMapping("/getUser/{documento}/{tipoDocumento}")
     ResponseEntity<UserDTO> getUsuario(@PathVariable("documento") Long documento,
                                        @PathVariable("tipoDocumento")String tipoDocumento){
         return new
                 ResponseEntity<>(userService.getUsuario(documento, tipoDocumento), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteUser/{documento}")
-    ResponseEntity<HttpStatus> deleteUsuario(@PathVariable("documento") Long documento){
-        return new
-                ResponseEntity<>(userService.deleteUsuario(documento), HttpStatus.OK);
+    @DeleteMapping("/deleteUser/{documento}/{tipoDocumento}")
+    ResponseEntity<HttpStatus> deleteUsuario(@PathVariable("documento") Long documento,
+                                             @PathVariable("tipoDocumento") String tipoDocumento) {
+        return new ResponseEntity<>(userService.deleteUsuario(documento, tipoDocumento), HttpStatus.OK);
     }
 
     @PutMapping("/updateUser")
     ResponseEntity<UserDTO> updateUsuario(@RequestBody UserDTO userDTO){
         return new
-                ResponseEntity<>(userService.updateUsuario(userDTO), HttpStatus.NO_CONTENT);
+                ResponseEntity<>(userService.updateUsuario(userDTO), HttpStatus.ACCEPTED);
     }
 
 }
