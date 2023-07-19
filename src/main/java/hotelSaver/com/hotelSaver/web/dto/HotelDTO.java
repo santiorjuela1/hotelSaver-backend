@@ -1,10 +1,9 @@
 package hotelSaver.com.hotelSaver.web.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class HotelDTO {
@@ -17,3 +16,5 @@ public class HotelDTO {
     private Float precioNoche;
 
 }
+
+

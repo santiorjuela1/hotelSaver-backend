@@ -1,6 +1,7 @@
 package hotelSaver.com.hotelSaver.web.dto;
 
 import hotelSaver.com.hotelSaver.model.entities.ReservationID;
+import hotelSaver.com.hotelSaver.model.entities.UserID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +16,15 @@ public class ReservationDTO {
     private String fechaInicio;
     private String fechaFin;
     private Integer numeroHabitaciones;
-    private List<Long> cedulas;
+    private List<UserID> cedulas;
 
     public ReservationDTO(String fechaInicio, String fechaFin,
-                          Integer numeroHabitaciones, List<Long> cedulas) {
+                          Integer numeroHabitaciones, List<UserID> cedulas) {
 
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.numeroHabitaciones = numeroHabitaciones;
         this.cedulas = cedulas;
+
     }
 }
