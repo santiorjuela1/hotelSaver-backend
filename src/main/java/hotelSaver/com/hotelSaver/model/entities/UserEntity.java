@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "users")
 public class UserEntity {
-
     //documento, tipoDocumento
     @EmbeddedId
     private UserID userID;
@@ -23,11 +23,7 @@ public class UserEntity {
 
     private String telefono;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id"),
-            @JoinColumn(name = "user_documento", referencedColumnName = "documento"),
-            @JoinColumn(name = "user_tipo_documento", referencedColumnName = "tipo_documento")
-    })
-    ReservationEntity reservationEntity;
+    @OneToMany(mappedBy = "userEntity")
+    private List<ReservationEntity> resevations;
+
 }

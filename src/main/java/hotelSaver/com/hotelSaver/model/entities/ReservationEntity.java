@@ -1,11 +1,14 @@
 package hotelSaver.com.hotelSaver.model.entities;
-
-import org.apache.catalina.User;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "reservations")
 public class ReservationEntity {
@@ -21,5 +24,16 @@ public class ReservationEntity {
     private Integer numeroHabitaciones;
 
     @OneToMany(mappedBy = "reservationEntity")
-    private List<UserEntity> cedulas;
+    private List<ClienteEntity> cedulas;
+
+    @ManyToOne(targetEntity = HotelEntity.class)
+    @JoinColumn(referencedColumnName = "id", name = "hotel_id_hotel")
+    private HotelEntity hotelEntity;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(referencedColumnName = "documento", name = "documento_user"),
+            @JoinColumn(referencedColumnName = "tipo_documento", name = "tipo_documento_user")
+    })
+    private UserEntity userEntity;
 }

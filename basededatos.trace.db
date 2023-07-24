@@ -492,3 +492,151 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/santi/O
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 121 more
+2023-07-19 10:58:16 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM USERS
+SELECT * FROM HOTELES
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-21 14:39:57 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM USERS [42000-214]
+2023-07-21 14:39:59 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM USERS [42000-214]
+2023-07-21 17:19:28 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]select * from reservations\000d\000aselect * from users"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]select * from reservations\000d\000aselect * from users"; SQL statement:
+SELECT * FROM HOTELES 
+select * from reservations
+select * from users [42000-214]
+2023-07-21 17:20:50 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]select * from reservations\000d\000aselect * from users"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]select * from reservations\000d\000aselect * from users"; SQL statement:
+SELECT * FROM HOTELES 
+select * from reservations
+select * from users [42000-214]
+2023-07-21 17:23:55 jdbc[15]: null
+org.h2.message.DbException: La conexión no fue cerrada por la aplicación y esta siendo limpiada (garbage collected)
+The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:190)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:132)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:288)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:808)
+	at org.h2.server.web.WebApp.login(WebApp.java:1033)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebServlet.doGet(WebServlet.java:129)
+	at org.h2.server.web.WebServlet.doPost(WebServlet.java:166)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: La conexión no fue cerrada por la aplicación y esta siendo limpiada (garbage collected)
+The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 47 more
+2023-07-21 17:29:18 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "SERS" no encontrada
+Table "SERS" not found; SQL statement:
+SELECT * FROM SERS [42102-214]
+2023-07-21 19:34:07 jdbc[54]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM USERS
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-21 19:34:28 jdbc[54]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM USERS
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-21 19:35:14 jdbc[54]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM USERS
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-21 19:43:38 jdbc[54]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM USERS\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM USERS
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-22 18:33:34 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM CLIENTES \000d\000aSELECT * FROM RESERVATIONS\000d\000aSELECT * FROM USERS"
+Syntax error in SQL statement "SELECT * FROM HOTELES \000d\000a[*]SELECT * FROM CLIENTES \000d\000aSELECT * FROM RESERVATIONS\000d\000aSELECT * FROM USERS"; SQL statement:
+SELECT * FROM HOTELES 
+SELECT * FROM CLIENTES 
+SELECT * FROM RESERVATIONS
+SELECT * FROM USERS [42000-214]
+2023-07-22 18:50:55 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]USERS"; se esperaba "UPDATE, USE"
+Syntax error in SQL statement "[*]USERS"; expected "UPDATE, USE"; SQL statement:
+USERS [42001-214]
+2023-07-22 18:51:29 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM USERS
+SELECT * FROM HOTELES
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-22 18:51:49 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS"
+Syntax error in SQL statement "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS"; SQL statement:
+SELECT * FROM USERS
+SELECT * FROM HOTELES
+SELECT * FROM RESERVATIONS [42000-214]
+2023-07-22 19:10:21 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS\000d\000aSELECT * FROM CLIENTes"
+Syntax error in SQL statement "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS\000d\000aSELECT * FROM CLIENTes"; SQL statement:
+SELECT * FROM USERS
+SELECT * FROM HOTELES
+SELECT * FROM RESERVATIONS
+SELECT * FROM CLIENTes [42000-214]
+2023-07-22 19:10:32 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS\000d\000aSELECT * FROM CLIENTes"
+Syntax error in SQL statement "SELECT * FROM USERS\000d\000a[*]SELECT * FROM HOTELES\000d\000aSELECT * FROM RESERVATIONS\000d\000aSELECT * FROM CLIENTes"; SQL statement:
+SELECT * FROM USERS
+SELECT * FROM HOTELES
+SELECT * FROM RESERVATIONS
+SELECT * FROM CLIENTes [42000-214]

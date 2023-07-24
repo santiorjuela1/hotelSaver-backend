@@ -1,6 +1,10 @@
 package hotelSaver.com.hotelSaver.web.dto;
 
+import hotelSaver.com.hotelSaver.model.entities.ReservationEntity;
 import lombok.*;
+
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +18,6 @@ public class HotelDTO {
     private String correoElectronico;
     private Integer numeroHabitaciones;
     private Float precioNoche;
-
 }
 
 

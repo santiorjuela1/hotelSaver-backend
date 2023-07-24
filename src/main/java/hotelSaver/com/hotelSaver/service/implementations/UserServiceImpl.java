@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    UserMapper userMapper;
 
     @Override
     public UserDTO createUsuario(UserDTO userDTO) {
@@ -27,11 +27,11 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("You have to introduce an id!");
         }
 
-        UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+        UserEntity userEntity = userMapper.userDTOToUserEntity(userDTO);
 
         userRepository.save(userEntity);
 
-       return modelMapper.map(userEntity, UserDTO.class );
+       return userMapper.userEntityToUserDTO(userEntity);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(userID).
                 orElseThrow(() -> new RuntimeException("Could not find ID"));
 
-        return modelMapper.map(userEntity, UserDTO.class);
+        return userMapper.userEntityToUserDTO(userEntity);
     }
 
     @Override
@@ -60,10 +60,10 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(userDTO.getUserID())
                 .orElseThrow(() -> new RuntimeException("Id was not found"));
 
-        modelMapper.map(userDTO, userEntity);
+       UserEntity userUpdated = userMapper.userDTOToUserEntity(userDTO);
 
-        userRepository.save(userEntity);
+        userRepository.save(userUpdated);
 
-        return modelMapper.map(userEntity, UserDTO.class);
+        return userMapper.userEntityToUserDTO(userEntity);
     }
 }

@@ -1,9 +1,11 @@
 package hotelSaver.com.hotelSaver.service.implementations;
 
+import hotelSaver.com.hotelSaver.configurations.mapper.HotelMapper;
 import hotelSaver.com.hotelSaver.model.entities.HotelEntity;
 import hotelSaver.com.hotelSaver.model.repositories.HotelRepository;
 import hotelSaver.com.hotelSaver.service.interfaces.HotelService;
 import hotelSaver.com.hotelSaver.web.dto.HotelDTO;
+import hotelSaver.com.hotelSaver.web.exceptions.types.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,39 +22,31 @@ public class HotelServiceImpl implements HotelService {
     HotelRepository hotelRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    HotelMapper hotelMapper;
 
     @Override
     public HotelDTO createHotel(HotelDTO hotelDTO) {
-        // Making sure the ID is unique
-        UUID resourceId = UUID.randomUUID();
-        String currentId = hotelDTO.getId();
-        String uniqueId;
-
-        if(currentId != null && !currentId.isEmpty()){
-            uniqueId = currentId + "-" + resourceId;
-        }
-        else{
-            throw new RuntimeException("The id cannot be empty!");
+        if(hotelDTO.getId() == null){
+            throw new BadRequestException("Not valid id");
         }
         HotelEntity hotelEntity =
-                hotelRepository.save(modelMapper.map(hotelDTO, HotelEntity.class));
+                hotelRepository.save(hotelMapper.toHotelEntity(hotelDTO));
 
-        return modelMapper.map(hotelEntity, HotelDTO.class);
+        return hotelMapper.toHotelDTO(hotelEntity);
     }
 
     @Override
     public HotelDTO getHotel(String id) {
        HotelEntity hotelEntity =  hotelRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Id not found"));
+                orElseThrow(() -> new BadRequestException("Id not found"));
 
-       return modelMapper.map(hotelEntity, HotelDTO.class);
+       return hotelMapper.toHotelDTO(hotelEntity);
     }
 
     @Override
     public HttpStatus deleteHotel(String id) {
         HotelEntity hotelEntity = hotelRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("id not found"));
+                orElseThrow(() -> new BadRequestException("id not found"));
 
         hotelRepository.delete(hotelEntity);
 
@@ -62,12 +56,11 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelDTO updateHotel(HotelDTO hotelDTO) {
         HotelEntity hotelEntity = hotelRepository.findById(hotelDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Hotel with ID not found"));
+                .orElseThrow(() -> new BadRequestException("Hotel with ID not found"));
 
-        modelMapper.map(hotelDTO, hotelEntity);
-        hotelEntity = hotelRepository.save(hotelEntity);
+        HotelEntity hotelUpdated = hotelRepository.save(hotelMapper.toHotelEntity(hotelDTO));
 
-        return modelMapper.map(hotelEntity, HotelDTO.class);
+        return hotelMapper.toHotelDTO(hotelUpdated);
     }
 
     @Override
@@ -75,7 +68,7 @@ public class HotelServiceImpl implements HotelService {
         List<HotelEntity> hotelEntities = hotelRepository.findAll();
 
         List<HotelDTO> hotelDTOS = hotelEntities.stream().
-                map((eachHotelEntity) -> modelMapper.map(eachHotelEntity, HotelDTO.class)).
+                map((eachHotelEntity) -> hotelMapper.toHotelDTO(eachHotelEntity)).
                 collect(Collectors.toList());
 
         return hotelDTOS;
