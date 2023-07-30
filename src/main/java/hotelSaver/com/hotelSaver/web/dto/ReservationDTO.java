@@ -26,6 +26,5 @@ public class ReservationDTO {
         this.fechaFin = fechaFin;
         this.numeroHabitaciones = numeroHabitaciones;
         this.cedulas = cedulas;
-
     }
 }

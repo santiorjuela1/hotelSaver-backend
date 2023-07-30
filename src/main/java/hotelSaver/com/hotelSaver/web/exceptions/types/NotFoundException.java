@@ -1,8 +1,9 @@
 package hotelSaver.com.hotelSaver.web.exceptions.types;
 
-public class NullPointerException extends RuntimeException{
+public class NotFoundException extends RuntimeException{
     private String message;
-    NullPointerException(String message){
+
+    public NotFoundException(String message){
         super(message);
     }
 }

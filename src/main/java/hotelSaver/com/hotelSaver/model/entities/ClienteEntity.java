@@ -20,9 +20,9 @@ public class ClienteEntity {
 
     @ManyToOne
     @JoinColumns({
+            @JoinColumn(name = "hotel_id_user", referencedColumnName = "hotel_id"),
             @JoinColumn(name = "documento_user", referencedColumnName = "documento"),
-            @JoinColumn(name = "tipo_documento_user", referencedColumnName = "tipo_documento"),
-            @JoinColumn(name = "hotel_id_user", referencedColumnName = "hotel_id")
+            @JoinColumn(name = "tipo_documento_user", referencedColumnName = "tipo_documento")
     })
     private ReservationEntity reservationEntity;
 }

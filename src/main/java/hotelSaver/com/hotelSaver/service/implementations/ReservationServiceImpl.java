@@ -1,14 +1,16 @@
 package hotelSaver.com.hotelSaver.service.implementations;
 
 import hotelSaver.com.hotelSaver.configurations.mapper.ReservationMapper;
-import hotelSaver.com.hotelSaver.model.entities.HotelEntity;
-import hotelSaver.com.hotelSaver.model.entities.ReservationEntity;
+import hotelSaver.com.hotelSaver.model.entities.*;
 import hotelSaver.com.hotelSaver.model.repositories.HotelRepository;
 import hotelSaver.com.hotelSaver.model.repositories.ReservationRepository;
 import hotelSaver.com.hotelSaver.model.repositories.UserRepository;
 import hotelSaver.com.hotelSaver.service.interfaces.ReservationService;
+import hotelSaver.com.hotelSaver.service.interfaces.adapter.ClientAdapter;
+import hotelSaver.com.hotelSaver.web.dto.ClienteDTO;
 import hotelSaver.com.hotelSaver.web.dto.ReservationDTO;
 import hotelSaver.com.hotelSaver.web.exceptions.types.BadRequestException;
+import hotelSaver.com.hotelSaver.web.exceptions.types.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     ReservationMapper reservationMapper;
+
+    @Autowired
+    ClientAdapter clientAdapter;
 
     @Override
     public ReservationDTO createReservation(ReservationDTO reservationDTO) {
@@ -55,7 +60,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDTO getReservation(Long documento, String tipoDocumento, String hotelID) {
-        return null;
+        UserID userID = new UserID(documento, tipoDocumento);
+        ReservationID reservationID = new ReservationID(userID, hotelID);
+
+        ReservationEntity reservationEntity =  reservationRepository.findById(reservationID).
+                orElseThrow(() -> new NotFoundException("id not found!!"));
+
+        return reservationMapper.toReservationDTO(reservationEntity);
     }
 
     @Override

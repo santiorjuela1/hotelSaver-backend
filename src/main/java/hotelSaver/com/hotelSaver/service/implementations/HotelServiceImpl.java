@@ -6,6 +6,7 @@ import hotelSaver.com.hotelSaver.model.repositories.HotelRepository;
 import hotelSaver.com.hotelSaver.service.interfaces.HotelService;
 import hotelSaver.com.hotelSaver.web.dto.HotelDTO;
 import hotelSaver.com.hotelSaver.web.exceptions.types.BadRequestException;
+import hotelSaver.com.hotelSaver.web.exceptions.types.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelDTO getHotel(String id) {
        HotelEntity hotelEntity =  hotelRepository.findById(id).
-                orElseThrow(() -> new BadRequestException("Id not found"));
+                orElseThrow(() -> new NotFoundException("id: " + id + " not found"));
 
        return hotelMapper.toHotelDTO(hotelEntity);
     }
@@ -46,7 +47,7 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HttpStatus deleteHotel(String id) {
         HotelEntity hotelEntity = hotelRepository.findById(id).
-                orElseThrow(() -> new BadRequestException("id not found"));
+                orElseThrow(() -> new NotFoundException("id not found"));
 
         hotelRepository.delete(hotelEntity);
 
@@ -56,7 +57,7 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelDTO updateHotel(HotelDTO hotelDTO) {
         HotelEntity hotelEntity = hotelRepository.findById(hotelDTO.getId())
-                .orElseThrow(() -> new BadRequestException("Hotel with ID not found"));
+                .orElseThrow(() -> new NotFoundException("Hotel with ID not found"));
 
         HotelEntity hotelUpdated = hotelRepository.save(hotelMapper.toHotelEntity(hotelDTO));
 

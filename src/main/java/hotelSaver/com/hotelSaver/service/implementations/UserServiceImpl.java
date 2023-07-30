@@ -6,8 +6,8 @@ import hotelSaver.com.hotelSaver.model.entities.UserID;
 import hotelSaver.com.hotelSaver.model.repositories.UserRepository;
 import hotelSaver.com.hotelSaver.service.interfaces.UserService;
 import hotelSaver.com.hotelSaver.web.dto.UserDTO;
-import org.apache.catalina.User;
-import org.modelmapper.ModelMapper;
+import hotelSaver.com.hotelSaver.web.exceptions.types.BadRequestException;
+import hotelSaver.com.hotelSaver.web.exceptions.types.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUsuario(UserDTO userDTO) {
         if(userDTO.getUserID().getDocumento() == null && userDTO.getUserID().getTipoDocumento().isEmpty()){
-            throw new IllegalArgumentException("You have to introduce an id!");
+            throw new BadRequestException("You have to introduce an id!");
         }
 
         UserEntity userEntity = userMapper.userDTOToUserEntity(userDTO);
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         UserID userID = new UserID(documento, tipoDocumento);
 
         UserEntity userEntity = userRepository.findById(userID).
-                orElseThrow(() -> new RuntimeException("Could not find ID"));
+                orElseThrow(() -> new NotFoundException("Could not find ID: "+documento + "," + tipoDocumento));
 
         return userMapper.userEntityToUserDTO(userEntity);
     }
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         UserID userID = new UserID(documento, tipoDocumento);
 
         UserEntity userEntity = userRepository.findById(userID).
-                orElseThrow(() -> new RuntimeException("Could not find ID"));
+                orElseThrow(() -> new NotFoundException("Could not find ID"));
 
         userRepository.delete(userEntity);
         return HttpStatus.NO_CONTENT;
@@ -57,8 +57,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUsuario(UserDTO userDTO) {
+
         UserEntity userEntity = userRepository.findById(userDTO.getUserID())
-                .orElseThrow(() -> new RuntimeException("Id was not found"));
+                .orElseThrow(() -> new NotFoundException("Id was not found"));
 
        UserEntity userUpdated = userMapper.userDTOToUserEntity(userDTO);
 

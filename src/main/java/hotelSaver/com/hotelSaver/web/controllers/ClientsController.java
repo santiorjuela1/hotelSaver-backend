@@ -1,6 +1,7 @@
 package hotelSaver.com.hotelSaver.web.controllers;
 
 import hotelSaver.com.hotelSaver.service.interfaces.ClienteService;
+import hotelSaver.com.hotelSaver.web.dto.ClientDtoRequest;
 import hotelSaver.com.hotelSaver.web.dto.ClienteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ public class ClientsController {
     ClienteService clienteService;
 
     @PostMapping("/createClient")
-    ResponseEntity<ClienteDTO> createClient(@RequestBody ClienteDTO clienteDTO){
+    ResponseEntity<ClientDtoRequest> createClient(@RequestBody ClientDtoRequest clienteDTO){
         return new ResponseEntity<>(clienteService.createClient(clienteDTO), HttpStatus.ACCEPTED);
     }
 
