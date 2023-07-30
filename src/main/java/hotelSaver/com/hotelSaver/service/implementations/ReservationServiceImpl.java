@@ -67,11 +67,30 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public HttpStatus deleteReservation(Long documento, String tipoDocumento, String hotelID) {
-        return null;
+        UserID userID = new UserID(documento, tipoDocumento);
+        ReservationID reservationID = new ReservationID(userID, hotelID);
+
+        ReservationEntity reservationEntity = reservationRepository.findById(reservationID)
+                .orElseThrow(() -> new NotFoundException("Reservation not found!"));
+
+        reservationRepository.delete(reservationEntity);
+
+        return HttpStatus.NO_CONTENT;
     }
 
     @Override
     public ReservationDTO updateReservation(ReservationDTO reservationDTO) {
-        return null;
+        ReservationID reservationID = new ReservationID(
+                new UserID(reservationDTO.getDocumento(), reservationDTO.getTipoDocumento()),
+                reservationDTO.getHotelID()
+        );
+
+        ReservationEntity reservationEntity = reservationRepository.findById(reservationID)
+                .orElseThrow(() -> new NotFoundException("Reservation not found!"));
+        
+        ReservationEntity updatedReservation =
+                reservationRepository.save(reservationMapper.toReservationEntity(reservationDTO));
+
+        return reservationMapper.toReservationDTO(updatedReservation);
     }
 }

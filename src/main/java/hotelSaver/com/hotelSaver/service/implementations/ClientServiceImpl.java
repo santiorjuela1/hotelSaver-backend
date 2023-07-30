@@ -1,5 +1,6 @@
 package hotelSaver.com.hotelSaver.service.implementations;
 
+import hotelSaver.com.hotelSaver.configurations.mapper.ClientMapper;
 import hotelSaver.com.hotelSaver.model.entities.ClienteEntity;
 import hotelSaver.com.hotelSaver.model.entities.ReservationEntity;
 import hotelSaver.com.hotelSaver.model.entities.ReservationID;
@@ -27,21 +28,24 @@ public class ClientServiceImpl implements ClienteService {
     @Autowired
     ReservationRepository reservationRepository;
 
+    @Autowired
+    ClientMapper clientMapper;
+
     @Override
     public ClientDtoRequest createClient(ClientDtoRequest clienteDTO) {
 
         UserID userID = new UserID(clienteDTO.getDocumentoUser(), clienteDTO.getTipoDocumento());
         ReservationID reservationID = new ReservationID(userID, clienteDTO.getHotelID());
 
-        ReservationEntity reservationEntity  =
-                reservationRepository.findById(reservationID).orElseThrow(() -> new NotFoundException("Id not found!"));
+        ReservationEntity reservationEntity = reservationRepository.findById(reservationID)
+                .orElseThrow(() -> new NotFoundException("Id not found!"));
 
-        clienteDTO.setDocumentoUser(reservationEntity.getReservationID().getUserID().getDocumento());
-        clienteDTO.setTipoDocumentoUser(reservationEntity.getReservationID().getUserID().getTipoDocumento());
-        clienteDTO.setHotelID(reservationEntity.getHotelEntity().getId());
+        ClienteEntity clienteEntity = clientMapper.toClienteEntity(clienteDTO);
+        clienteEntity.setReservationEntity(reservationEntity);
 
-        ClienteEntity clienteEntity =  clientRepository.save(modelMapper.map(clienteDTO, ClienteEntity.class));
-        return modelMapper.map(clienteEntity, ClientDtoRequest.class);
+        clienteEntity = clientRepository.save(clienteEntity);
+
+        return clientMapper.toClientDtoRequest(clienteEntity);
     }
 
     @Override
