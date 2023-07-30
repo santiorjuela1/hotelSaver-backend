@@ -6,8 +6,7 @@ import hotelSaver.com.hotelSaver.model.repositories.HotelRepository;
 import hotelSaver.com.hotelSaver.model.repositories.ReservationRepository;
 import hotelSaver.com.hotelSaver.model.repositories.UserRepository;
 import hotelSaver.com.hotelSaver.service.interfaces.ReservationService;
-import hotelSaver.com.hotelSaver.service.interfaces.adapter.ClientAdapter;
-import hotelSaver.com.hotelSaver.web.dto.ClienteDTO;
+
 import hotelSaver.com.hotelSaver.web.dto.ReservationDTO;
 import hotelSaver.com.hotelSaver.web.exceptions.types.BadRequestException;
 import hotelSaver.com.hotelSaver.web.exceptions.types.NotFoundException;
@@ -32,9 +31,6 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     ReservationMapper reservationMapper;
 
-    @Autowired
-    ClientAdapter clientAdapter;
-
     @Override
     public ReservationDTO createReservation(ReservationDTO reservationDTO) {
         if((reservationDTO.getReservationID().getUserID().getDocumento() == null)
@@ -43,7 +39,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         ReservationEntity reservationEntity = reservationMapper.toReservationEntity(reservationDTO);
-        // Dandole sus valores respectivos a las llaves primarias
+/*        // Dandole sus valores respectivos a las llaves primarias
         reservationEntity.setHotelEntity(
                 hotelRepository.findById(reservationEntity.getReservationID().getHotelID()).
                         orElseThrow(() ->  new BadRequestException("Not found")));
@@ -51,7 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
                 userRepository.findById(
                         reservationEntity.getReservationID().getUserID()).
                         orElseThrow(() -> new BadRequestException("ID NOT FOUND"))
-        );
+        );*/
 
         reservationRepository.save(reservationEntity);
 
