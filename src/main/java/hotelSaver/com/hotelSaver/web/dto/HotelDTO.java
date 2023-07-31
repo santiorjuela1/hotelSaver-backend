@@ -18,6 +18,8 @@ public class HotelDTO {
     private String correoElectronico;
     private Integer numeroHabitaciones;
     private Float precioNoche;
+    private String contrasena;
+    private Integer estrellas;
 }
 
 

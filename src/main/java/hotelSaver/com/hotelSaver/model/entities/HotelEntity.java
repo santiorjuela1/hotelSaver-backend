@@ -31,6 +31,10 @@ public class HotelEntity {
 
     private Float precioNoche;
 
+    private String contrasena;
+
+    private Integer estrellas;
+
     @OneToMany(mappedBy = "hotelEntity")
     private List<ReservationEntity> reservationEntityList;
 }
