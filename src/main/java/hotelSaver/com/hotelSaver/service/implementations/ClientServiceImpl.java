@@ -1,17 +1,13 @@
 package hotelSaver.com.hotelSaver.service.implementations;
 
 import hotelSaver.com.hotelSaver.configurations.mapper.ClientMapper;
-import hotelSaver.com.hotelSaver.model.entities.ClienteEntity;
-import hotelSaver.com.hotelSaver.model.entities.ReservationEntity;
-import hotelSaver.com.hotelSaver.model.entities.ReservationID;
-import hotelSaver.com.hotelSaver.model.entities.UserID;
+import hotelSaver.com.hotelSaver.model.entities.*;
 import hotelSaver.com.hotelSaver.model.repositories.ClientRepository;
 import hotelSaver.com.hotelSaver.model.repositories.ReservationRepository;
 import hotelSaver.com.hotelSaver.service.interfaces.ClienteService;
 import hotelSaver.com.hotelSaver.web.dto.ClientDtoRequest;
 import hotelSaver.com.hotelSaver.web.dto.ClienteDTO;
 import hotelSaver.com.hotelSaver.web.exceptions.types.NotFoundException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,9 +19,6 @@ public class ClientServiceImpl implements ClienteService {
     ClientRepository clientRepository;
 
     @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
     ReservationRepository reservationRepository;
 
     @Autowired
@@ -34,7 +27,7 @@ public class ClientServiceImpl implements ClienteService {
     @Override
     public ClientDtoRequest createClient(ClientDtoRequest clienteDTO) {
 
-        UserID userID = new UserID(clienteDTO.getDocumentoUser(), clienteDTO.getTipoDocumento());
+        UserID userID = new UserID(clienteDTO.getDocumentoUser(), clienteDTO.getTipoDocumentoUser());
         ReservationID reservationID = new ReservationID(userID, clienteDTO.getHotelID());
 
         ReservationEntity reservationEntity = reservationRepository.findById(reservationID)
@@ -49,17 +42,35 @@ public class ClientServiceImpl implements ClienteService {
     }
 
     @Override
-    public ClienteDTO getClient(Long documento) {
-        return null;
+    public ClientDtoRequest getClient(Long documento) {
+        ClienteEntity clienteEntity = clientRepository.findById(documento)
+                .orElseThrow(() -> new NotFoundException("Cliente not found!"));
+
+        return clientMapper.toClientDtoRequest(clienteEntity);
     }
 
     @Override
     public HttpStatus deleteClient(Long documento) {
-        return null;
+        ClienteEntity clienteEntity = clientRepository.findById(documento)
+                .orElseThrow(() -> new NotFoundException("Cliente not found!"));
+
+        clientRepository.delete(clienteEntity);
+
+        return HttpStatus.NO_CONTENT;
     }
 
     @Override
-    public ClienteDTO updateClient(ClienteDTO clienteDTO) {
-        return null;
+    public ClientDtoRequest updateClient(ClientDtoRequest clienteDTO) {
+
+        ClienteEntity clienteEntity = clientRepository.findById(clienteDTO.getDocumento())
+                .orElseThrow(() -> new NotFoundException("Id was not found"));
+
+        ClienteEntity clienteEntity1 = clientMapper.toClienteEntity(clienteDTO);
+
+        clientRepository.save(clienteEntity1);
+
+        return clientMapper.toClientDtoRequest(clienteEntity1);
     }
+
+
 }

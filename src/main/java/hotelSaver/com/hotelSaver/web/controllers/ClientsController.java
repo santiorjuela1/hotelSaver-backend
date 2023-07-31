@@ -21,7 +21,17 @@ public class ClientsController {
     }
 
     @GetMapping("/getClient/{documento}")
-    ResponseEntity<ClienteDTO> getClient(@PathVariable("documento")Long documento){
+    ResponseEntity<ClientDtoRequest> getClient(@PathVariable("documento")Long documento){
         return new ResponseEntity<>(clienteService.getClient(documento), HttpStatus.OK);
+    }
+
+    @PutMapping("/updateClient")
+    ResponseEntity<ClientDtoRequest> updateClient(@RequestBody ClientDtoRequest clientDtoRequest){
+        return new ResponseEntity<>(clienteService.updateClient(clientDtoRequest), HttpStatus.OK);
+    }
+
+    @DeleteMapping("deleteClient/{documento}")
+    ResponseEntity<HttpStatus> deleteClient(@PathVariable("documento")Long documento){
+        return new ResponseEntity<>(clienteService.deleteClient(documento), HttpStatus.NO_CONTENT);
     }
 }

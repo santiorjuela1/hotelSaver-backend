@@ -39,15 +39,6 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         ReservationEntity reservationEntity = reservationMapper.toReservationEntity(reservationDTO);
-/*        // Dandole sus valores respectivos a las llaves primarias
-        reservationEntity.setHotelEntity(
-                hotelRepository.findById(reservationEntity.getReservationID().getHotelID()).
-                        orElseThrow(() ->  new BadRequestException("Not found")));
-        reservationEntity.setUserEntity(
-                userRepository.findById(
-                        reservationEntity.getReservationID().getUserID()).
-                        orElseThrow(() -> new BadRequestException("ID NOT FOUND"))
-        );*/
 
         reservationRepository.save(reservationEntity);
 
@@ -87,7 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         ReservationEntity reservationEntity = reservationRepository.findById(reservationID)
                 .orElseThrow(() -> new NotFoundException("Reservation not found!"));
-        
+
         ReservationEntity updatedReservation =
                 reservationRepository.save(reservationMapper.toReservationEntity(reservationDTO));
 

@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 
 public interface ClienteService {
     ClientDtoRequest createClient(ClientDtoRequest clienteDTO);
-    ClienteDTO getClient(Long documento);
+    ClientDtoRequest getClient(Long documento);
     HttpStatus deleteClient(Long documento);
-    ClienteDTO updateClient(ClienteDTO clienteDTO);
+    ClientDtoRequest updateClient(ClientDtoRequest clienteDTO);
 }

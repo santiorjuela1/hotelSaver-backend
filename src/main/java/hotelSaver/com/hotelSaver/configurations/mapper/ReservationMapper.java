@@ -17,8 +17,8 @@ public abstract class ReservationMapper {
     })
     public abstract ReservationEntity toReservationEntity(ReservationDTO reservationDTO);
 
-    @Mapping(target = "fechaInicio", dateFormat = "yyyy-MM-dd")
-    @Mapping(target = "fechaFin", dateFormat = "yyyy-MM-dd")
+    @Mapping(target = "fechaInicio", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "fechaFin", dateFormat = "dd-MM-yyyy")
     @Mapping(source = "cedulas", target = "cedulas")
     @Mapping(source = "hotelEntity.id", target = "hotelID") // Assuming "id" is the property name for hotel's ID in HotelEntity
     @Mapping(source = "userEntity.userID.documento", target = "documento")
