@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -66,5 +69,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userUpdated);
 
         return userMapper.userEntityToUserDTO(userUpdated);
+    }
+
+    @Override
+    public List<UserDTO> findAllUsers(){
+         List<UserEntity> allUsersDTO = userRepository.findAll();
+
+         return allUsersDTO.stream()
+                 .map((eachUserEntity) -> userMapper.userEntityToUserDTO(eachUserEntity)).collect(Collectors.toList());
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/apiUsers/v1")
 @RestController
 public class UserController {
@@ -36,6 +38,11 @@ public class UserController {
     ResponseEntity<UserDTO> updateUsuario(@RequestBody UserDTO userDTO){
         return new
                 ResponseEntity<>(userService.updateUsuario(userDTO), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/getAllUsers")
+    ResponseEntity<List<UserDTO>> getAllUsers(){
+        return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
 }
