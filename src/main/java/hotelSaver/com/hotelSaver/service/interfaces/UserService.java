@@ -13,6 +13,7 @@ public interface UserService {
     HttpStatus deleteUsuario(Long documento, String tipoDocumento);
     UserDTO updateUsuario(UserDTO userDTO);
     List<UserDTO> findAllUsers();
+    UserDTO findByCorreo(String correo);
 }
 
 

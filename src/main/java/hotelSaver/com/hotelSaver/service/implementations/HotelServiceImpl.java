@@ -74,4 +74,13 @@ public class HotelServiceImpl implements HotelService {
 
         return hotelDTOS;
     }
+
+    @Override
+    public HotelDTO getHotelByCorreo(String correo) {
+        HotelEntity hotelEntity =
+                hotelRepository.findByCorreo(correo).
+                        orElseThrow(() -> new NotFoundException("Such email was not found"));
+
+        return hotelMapper.toHotelDTO(hotelEntity);
+    }
 }

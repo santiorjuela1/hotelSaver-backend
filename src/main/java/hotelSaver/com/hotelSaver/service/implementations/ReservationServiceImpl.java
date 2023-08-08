@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -83,5 +85,20 @@ public class ReservationServiceImpl implements ReservationService {
                 reservationRepository.save(reservationMapper.toReservationEntity(reservationDTO));
 
         return reservationMapper.toReservationDTO(updatedReservation);
+    }
+
+    @Override
+    public List<ReservationDTO> findAllByHotelID(String hotelID) {
+        List<ReservationEntity> entities = reservationRepository.findAllByHotelEntity_Id(hotelID);
+
+        return entities.stream().
+                map((eachEntity) -> reservationMapper.toReservationDTO(eachEntity)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> findAllByUserDocumento(Long documento) {
+        List<ReservationEntity> entities = reservationRepository.findAllByUserEntityDocumento(documento);
+
+        return entities.stream().map((eachEntitiy) -> reservationMapper.toReservationDTO(eachEntitiy)).collect(Collectors.toList());
     }
 }

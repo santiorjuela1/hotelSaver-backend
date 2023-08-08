@@ -46,4 +46,9 @@ public class HotelController {
         return new
                 ResponseEntity<>(hotelService.getAllHotels(), HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("getHotelByCorreo/{correo}")
+    ResponseEntity<HotelDTO> getHoteleByCorreo(@PathVariable("correo")String correo){
+        return new ResponseEntity<>(hotelService.getHotelByCorreo(correo), HttpStatus.ACCEPTED);
+    }
 }

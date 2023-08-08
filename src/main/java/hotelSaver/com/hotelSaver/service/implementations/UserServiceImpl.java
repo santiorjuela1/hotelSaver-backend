@@ -78,4 +78,12 @@ public class UserServiceImpl implements UserService {
          return allUsersDTO.stream()
                  .map((eachUserEntity) -> userMapper.userEntityToUserDTO(eachUserEntity)).collect(Collectors.toList());
     }
+
+    @Override
+    public UserDTO findByCorreo(String correo) {
+       UserEntity userEntity = userRepository.findByCorreo(correo).
+               orElseThrow(() -> new NotFoundException("Correo not found"));
+
+       return userMapper.userEntityToUserDTO(userEntity);
+    }
 }

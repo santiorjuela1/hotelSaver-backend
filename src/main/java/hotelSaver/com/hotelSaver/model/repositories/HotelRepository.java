@@ -12,4 +12,5 @@ public interface HotelRepository extends JpaRepository<HotelEntity, String> {
 
     @Override
     Optional<HotelEntity> findById(String id);
+    Optional<HotelEntity> findByCorreo(String correo);
 }

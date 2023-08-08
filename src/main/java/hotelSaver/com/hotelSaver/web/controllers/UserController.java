@@ -45,4 +45,9 @@ public class UserController {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/getUserByCorreo/{correo}")
+    ResponseEntity<UserDTO> getUserByCorreo(@PathVariable("correo") String correo){
+        return new ResponseEntity<>(userService.findByCorreo(correo), HttpStatus.ACCEPTED);
+    }
+
 }
