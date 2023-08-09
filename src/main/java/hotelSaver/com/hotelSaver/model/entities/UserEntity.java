@@ -23,7 +23,7 @@ public class UserEntity {
 
     private String telefono;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity",  cascade = CascadeType.ALL)
     private List<ReservationEntity> resevations;
 
 }

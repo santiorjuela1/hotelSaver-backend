@@ -35,7 +35,7 @@ public class HotelEntity {
 
     private Integer estrellas;
 
-    @OneToMany(mappedBy = "hotelEntity")
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL)
     private List<ReservationEntity> reservationEntityList;
 
     private String direccion;

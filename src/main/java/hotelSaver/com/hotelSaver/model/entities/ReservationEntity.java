@@ -26,14 +26,14 @@ public class ReservationEntity {
 
     private Integer numeroHabitaciones;
 
-    @OneToMany(mappedBy = "reservationEntity")
+    @OneToMany(mappedBy = "reservationEntity", cascade = CascadeType.ALL)
     private List<ClienteEntity> cedulas;
 
-    @ManyToOne(targetEntity = HotelEntity.class)
+    @ManyToOne(targetEntity = HotelEntity.class, cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id", name = "hotel_id_hotel")
     private HotelEntity hotelEntity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumns({
             @JoinColumn(referencedColumnName = "documento", name = "documento_user"),
             @JoinColumn(referencedColumnName = "tipo_documento", name = "tipo_documento_user")
