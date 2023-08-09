@@ -15,14 +15,8 @@ public class ReservationDTO {
     private String fechaInicio;
     private String fechaFin;
     private Integer numeroHabitaciones;
-    private List<Long> cedulas;
-
-    public ReservationDTO(String fechaInicio, String fechaFin,
-                          Integer numeroHabitaciones, List<Long> cedulas) {
-
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.numeroHabitaciones = numeroHabitaciones;
-        this.cedulas = cedulas;
-    }
+    private List<ClientDtoRequest> cedulas;
+    private String hotelID;
+    private Long documento;
+    private String tipoDocumento;
 }

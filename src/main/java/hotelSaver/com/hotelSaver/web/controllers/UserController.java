@@ -3,12 +3,13 @@ package hotelSaver.com.hotelSaver.web.controllers;
 import hotelSaver.com.hotelSaver.service.interfaces.UserService;
 import hotelSaver.com.hotelSaver.web.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(name = "/apiUsers/v1")
+import java.util.List;
+
+@RequestMapping("/apiUsers/v1")
 @RestController
 public class UserController {
     @Autowired
@@ -20,22 +21,33 @@ public class UserController {
                 ResponseEntity<>(userService.createUsuario(userDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/getUser/{documento}")
-    ResponseEntity<UserDTO> getUsuario(@PathVariable("documento") Long documento){
+    @GetMapping("/getUser/{documento}/{tipoDocumento}")
+    ResponseEntity<UserDTO> getUsuario(@PathVariable("documento") Long documento,
+                                       @PathVariable("tipoDocumento")String tipoDocumento){
         return new
-                ResponseEntity<>(userService.getUsuario(documento), HttpStatus.OK);
+                ResponseEntity<>(userService.getUsuario(documento, tipoDocumento), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteUser/{documento}")
-    ResponseEntity<HttpStatus> deleteUsuario(@PathVariable("documento") Long documento){
-        return new
-                ResponseEntity<>(userService.deleteUsuario(documento), HttpStatus.OK);
+    @DeleteMapping("/deleteUser/{documento}/{tipoDocumento}")
+    ResponseEntity<HttpStatus> deleteUsuario(@PathVariable("documento") Long documento,
+                                             @PathVariable("tipoDocumento") String tipoDocumento) {
+        return new ResponseEntity<>(userService.deleteUsuario(documento, tipoDocumento), HttpStatus.OK);
     }
 
     @PutMapping("/updateUser")
     ResponseEntity<UserDTO> updateUsuario(@RequestBody UserDTO userDTO){
         return new
-                ResponseEntity<>(userService.updateUsuario(userDTO), HttpStatus.NO_CONTENT);
+                ResponseEntity<>(userService.updateUsuario(userDTO), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/getAllUsers")
+    ResponseEntity<List<UserDTO>> getAllUsers(){
+        return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserByCorreo/{correo}")
+    ResponseEntity<UserDTO> getUserByCorreo(@PathVariable("correo") String correo){
+        return new ResponseEntity<>(userService.findByCorreo(correo), HttpStatus.ACCEPTED);
     }
 
 }

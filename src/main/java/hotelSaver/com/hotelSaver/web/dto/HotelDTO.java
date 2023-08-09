@@ -1,8 +1,5 @@
 package hotelSaver.com.hotelSaver.web.dto;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -12,8 +9,12 @@ public class HotelDTO {
     private String nombre;
     private Integer capacidadReserva;
     private String telefono;
-    private String correoElectronico;
+    private String correo;
     private Integer numeroHabitaciones;
     private Float precioNoche;
-
+    private String contrasena;
+    private Integer estrellas;
+    private String direccion;
 }
+
+

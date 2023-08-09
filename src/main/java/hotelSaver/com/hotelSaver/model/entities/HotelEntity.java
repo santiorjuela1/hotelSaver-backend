@@ -3,16 +3,16 @@ package hotelSaver.com.hotelSaver.model.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+@ToString
 @Table(name = "hoteles")
 public class HotelEntity {
     @Id
@@ -25,9 +25,18 @@ public class HotelEntity {
 
     private String telefono;
 
-    private String correoElectronico;
+    private String correo;
 
     private Integer numeroHabitaciones;
 
     private Float precioNoche;
+
+    private String contrasena;
+
+    private Integer estrellas;
+
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL)
+    private List<ReservationEntity> reservationEntityList;
+
+    private String direccion;
 }
