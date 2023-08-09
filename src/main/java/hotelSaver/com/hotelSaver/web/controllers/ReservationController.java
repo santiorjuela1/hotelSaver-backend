@@ -1,11 +1,8 @@
 package hotelSaver.com.hotelSaver.web.controllers;
 
-import hotelSaver.com.hotelSaver.model.entities.ReservationEntity;
-import hotelSaver.com.hotelSaver.model.entities.ReservationID;
+
 import hotelSaver.com.hotelSaver.service.interfaces.ReservationService;
-import hotelSaver.com.hotelSaver.web.dto.HotelDTO;
 import hotelSaver.com.hotelSaver.web.dto.ReservationDTO;
-import hotelSaver.com.hotelSaver.web.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

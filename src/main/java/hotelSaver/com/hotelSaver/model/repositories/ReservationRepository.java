@@ -12,9 +12,12 @@ import java.util.Optional;
 public interface ReservationRepository extends JpaRepository<ReservationEntity, ReservationID> {
     Optional<ReservationEntity> findById(ReservationID reservationID);
 
-    List<ReservationEntity> findAllByHotelEntity_Id(String hotelID);
+    // works
+    @Query(value="SELECT * FROM RESERVATIONS WHERE hotel_id =:hotelID", nativeQuery = true)
+    List<ReservationEntity> findAllByHotelEntity_Id(@Param("hotelID")String hotelID);
 
-    @Query(value = "SELECT * FROM ReservationEntity r WHERE documento_user = :documento", nativeQuery = true)
+
+    @Query(value = "SELECT * FROM RESERVATIONS WHERE documento_user = :documento", nativeQuery = true)
     List<ReservationEntity> findAllByUserEntityDocumento(@Param("documento")Long documento);
 
 }
